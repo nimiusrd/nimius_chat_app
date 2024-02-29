@@ -1,0 +1,92 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+	"name": "Python 3",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/python:1-3.12-bullseye",
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "pip3 install --user -r requirements.txt",
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"files.autoSave": "onFocusChange",
+				"autoDocstring.docstringFormat": "numpy",
+				"editor.codeActionsOnSave": {
+					"source.organizeImports": true
+				},
+				"editor.formatOnSave": true,
+				"editor.renderWhitespace": "all",
+				"python.defaultInterpreterPath": "/usr/local/bin/python",
+				"python.languageServer": "Pylance",
+				"black-formatter.path": [
+					"/home/vscode/.local/bin/black"
+				],
+				"flake8.path": [
+					"/home/vscode/.local/bin/flake8"
+				],
+				"mypy-type-checker.path": [
+					"/home/vscode/.local/bin/mypy"
+				],
+				"pylint.args": [
+					"--enable-all-extensions"
+				],
+				"pylint.severity": {
+					"convention": "Information",
+					"error": "Error",
+					"fatal": "Error",
+					"refactor": "Information",
+					"warning": "Warning",
+					"info": "Information"
+				},
+				"pylint.path": [
+					"/home/vscode/.local/bin/pylint"
+				],
+				"[python]": {
+					"editor.defaultFormatter": "ms-python.black-formatter",
+					"editor.formatOnSave": true
+				},
+				"shellformat.useEditorConfig": true,
+				"[dockerfile]": {
+					"editor.formatOnSave": false
+				},
+				"shellformat.effectLanguages": [
+					"shellscript",
+					"dotenv",
+					"hosts",
+					"jvmoptions",
+					"ignore",
+					"gitignore",
+					"properties",
+					"spring-boot-properties",
+					"azcli",
+					"bats"
+				]
+			},
+			"extensions": [
+				"editorconfig.editorconfig",
+				"foxundermoon.shell-format",
+				"GitHub.copilot",
+				"github.vscode-github-actions",
+				"matangover.mypy",
+				"mhutchie.git-graph",
+				"ms-azuretools.vscode-docker",
+				"ms-python.black-formatter",
+				"ms-python.flake8",
+				"ms-python.isort",
+				"ms-python.pylint",
+				"ms-python.python",
+				"njpwerner.autodocstring",
+				"streetsidesoftware.code-spell-checker",
+				"timonwong.shellcheck",
+				"twixes.pypi-assistant"
+			]
+		}
+	}
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}

@@ -1,0 +1,14 @@
+autodocstring
+azcli
+azuretools
+devcontainers
+foxundermoon
+jvmoptions
+matangover
+mhutchie
+njpwerner
+Pylance
+shellformat
+timonwong
+twixes
+VOICEVOX
