@@ -6,6 +6,7 @@ foxundermoon
 jvmoptions
 matangover
 mhutchie
+nimius
 njpwerner
 openai
 Pylance

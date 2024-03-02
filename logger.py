@@ -1,3 +1,5 @@
+""" configure logger for the project. """
+
 import logging
 
 logging.basicConfig(

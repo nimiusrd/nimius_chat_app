@@ -1,9 +1,8 @@
 import asyncio
-from tkinter import Tk
 
 from twitchAPI.chat import Chat
 from twitchAPI.oauth import UserAuthenticator
-from twitchAPI.twitch import ChannelStreamScheduleSegment, Twitch
+from twitchAPI.twitch import Twitch
 from twitchAPI.type import AuthScope, ChatEvent
 
 from config import config
