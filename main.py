@@ -1,32 +1,16 @@
 import asyncio
+from tkinter import Tk
 
-from twitchAPI.chat import Chat, ChatMessage, ChatSub, EventData
+from twitchAPI.chat import Chat
 from twitchAPI.oauth import UserAuthenticator
 from twitchAPI.twitch import Twitch
 from twitchAPI.type import AuthScope, ChatEvent
 
 from config import config
-from voicevox import talk
+from gui import app
+from twitch import on_message, on_ready
 
-USER_SCOPE = [AuthScope.CHAT_READ]
-
-
-async def on_ready(ready_event: EventData):
-    print("Bot is ready for work, joining channels")
-    await ready_event.chat.join_room(config.twitch.target_channel)
-
-
-async def on_message(msg: ChatMessage):
-    print(f"{msg.user.name} said: {msg.text}")
-    talk(msg.text)
-
-
-async def on_sub(sub: ChatSub):
-    print(
-        f"New subscription in {sub.room.name}:\\n"
-        f"  Type: {sub.sub_plan}\\n"
-        f"  Message: {sub.sub_message}"
-    )
+USER_SCOPE = [AuthScope.CHAT_READ, AuthScope.CHAT_EDIT]
 
 
 async def run():
@@ -39,16 +23,20 @@ async def run():
 
     chat.register_event(ChatEvent.READY, on_ready)
     chat.register_event(ChatEvent.MESSAGE, on_message)
-    chat.register_event(ChatEvent.SUB, on_sub)
 
     chat.start()
 
     try:
-        input("press ENTER to stop\\n")
+        input()
     finally:
         chat.stop()
         await twitch.close()
 
 
-# lets run our setup
-asyncio.run(run())
+def main():
+    asyncio.run(run())
+
+
+if __name__ == "__main__":
+    app.after(0, main)
+    app.mainloop()

@@ -13,6 +13,7 @@ class TwitchConfig:
 class VOICEVOXConfig:
     speaker: int
     url: str
+    output: str = "dist/output.wav"
 
 
 @dataclass
@@ -35,6 +36,7 @@ def read_config():
         voicevox=VOICEVOXConfig(
             speaker=voicevox["speaker"],
             url=f'http://{voicevox.get("host", "localhost")}:{voicevox.get("port", 50021)}',
+            output=voicevox.get("output", "dist/output.wav"),
         ),
     )
 
