@@ -70,7 +70,7 @@ class Config:
 def read_config():
     """Read configuration from `config.toml`."""
 
-    with Path("config.tml").open("rb") as f:
+    with Path("config.toml").open("rb") as f:
         data = tomllib.load(f)
     twitch = data["twitch"]
     voicevox = data["voicevox"]
