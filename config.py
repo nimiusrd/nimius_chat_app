@@ -3,6 +3,11 @@ from dataclasses import dataclass
 
 
 @dataclass
+class OpenAIConfig:
+    api_key: str
+
+
+@dataclass
 class TwitchConfig:
     app_id: str
     app_secret: str
@@ -20,6 +25,7 @@ class VOICEVOXConfig:
 class Config:
     twitch: TwitchConfig
     voicevox: VOICEVOXConfig
+    openai: OpenAIConfig
 
 
 def read_config():
@@ -27,6 +33,7 @@ def read_config():
         data = tomllib.load(f)
     twitch = data["twitch"]
     voicevox = data["voicevox"]
+    openai = data["openai"]
     return Config(
         twitch=TwitchConfig(
             app_id=twitch["app_id"],
@@ -38,6 +45,7 @@ def read_config():
             url=f'http://{voicevox.get("host", "localhost")}:{voicevox.get("port", 50021)}',
             output=voicevox.get("output", "dist/output.wav"),
         ),
+        openai=OpenAIConfig(api_key=openai["api_key"]),
     )
 
 

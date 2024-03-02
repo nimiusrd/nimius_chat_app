@@ -3,12 +3,13 @@ from tkinter import Tk
 
 from twitchAPI.chat import Chat
 from twitchAPI.oauth import UserAuthenticator
-from twitchAPI.twitch import Twitch
+from twitchAPI.twitch import ChannelStreamScheduleSegment, Twitch
 from twitchAPI.type import AuthScope, ChatEvent
 
 from config import config
 from gui import app
-from twitch import on_message, on_ready
+from logger import twitch_logger
+from twitch import create_gpt_comment, on_message, on_ready
 
 USER_SCOPE = [AuthScope.CHAT_READ, AuthScope.CHAT_EDIT]
 
@@ -23,12 +24,15 @@ async def run():
 
     chat.register_event(ChatEvent.READY, on_ready)
     chat.register_event(ChatEvent.MESSAGE, on_message)
+    chat.register_command("gpt", create_gpt_comment)
 
+    twitch_logger.info("Starting chat")
     chat.start()
 
     try:
-        input()
+        input("")
     finally:
+        twitch_logger.info("Closing chat")
         chat.stop()
         await twitch.close()
 

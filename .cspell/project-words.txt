@@ -7,6 +7,7 @@ jvmoptions
 matangover
 mhutchie
 njpwerner
+openai
 Pylance
 shellformat
 timonwong

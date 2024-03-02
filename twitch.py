@@ -1,8 +1,16 @@
-from twitchAPI.chat import ChatMessage, ChatSub, EventData
+from twitchAPI.chat import ChatCommand, ChatMessage, EventData
 
 from config import config
+from gpt.chat_completion import create_comment
 from logger import twitch_logger
 from voicevox import talk
+
+COMMAND_PREFIX = "!"
+COMMANDS = ["gpt"]
+
+
+def is_command(text: str) -> bool:
+    return any(text.startswith(f"{COMMAND_PREFIX}{command}") for command in COMMANDS)
 
 
 async def on_ready(ready_event: EventData):
@@ -12,5 +20,14 @@ async def on_ready(ready_event: EventData):
 
 
 async def on_message(msg: ChatMessage):
+    if is_command(msg.text):
+        return
     twitch_logger.info("%s said: %s", msg.user.name, msg.text)
     talk(msg.text)
+
+
+async def create_gpt_comment(cmd: ChatCommand):
+    twitch_logger.info("Creating GPT comment")
+    comment = create_comment()
+    await cmd.send(f'[gpt]{comment}')
+    talk(comment)

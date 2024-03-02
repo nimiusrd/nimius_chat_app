@@ -1,4 +1,5 @@
 twitchAPI
+openai
 requests
 black
 isort
