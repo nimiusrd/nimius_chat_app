@@ -29,6 +29,8 @@ async def on_message(msg: ChatMessage):
 async def create_gpt_comment(cmd: ChatCommand):
     twitch_logger.info("Creating GPT comment")
     query = cmd.parameter
+    if query != "":
+        talk(query)
     comment = create_comment(query)
-    await cmd.send(f"[gpt]{comment}")
+    await cmd.send(comment)
     talk(comment)

@@ -24,7 +24,10 @@ def create_comment(query: str | None = None):
             if query == "" or query is None
             else [
                 messages[0],
-                {"role": "user", "content": query},
+                {
+                    "role": "user",
+                    "content": f"""次の質問に100文字以内で回答してください。${query}""",
+                },
             ]
         ),
         temperature=1,
