@@ -84,7 +84,7 @@ def read_config():
         voicevox=VOICEVOXConfig(
             speaker=voicevox["speaker"],
             url=f'http://{voicevox.get("host", "localhost")}:{voicevox.get("port", 50021)}',
-            output=voicevox.get("output", "dist/output.wav"),
+            output=voicevox.get("output", "frontend/public/output.wav"),
         ),
         openai=OpenAIConfig(api_key=openai["api_key"]),
     )

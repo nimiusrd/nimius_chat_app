@@ -1,7 +1,28 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+import Card from "../components/Card.astro";
+import Layout from "../layouts/Layout.astro";
 ---
+
+<script>
+	import { useWebSocket } from "../scripts/webSocket";
+
+	const onMessage = (data) => {
+		console.log("Message from server", data);
+		const audioContext = new AudioContext();
+		data.arrayBuffer().then((buffer) => {
+			audioContext.decodeAudioData(buffer, (audioBuffer) => {
+				const source = audioContext.createBufferSource();
+				source.buffer = audioBuffer;
+				source.connect(audioContext.destination);
+				source.start();
+			});
+		});
+	};
+
+	useWebSocket("ws://localhost:8001", onMessage).then(({ send }) => {
+		send("Hello from Astro!");
+	});
+</script>
 
 <Layout title="Welcome to Astro.">
 	<main>
@@ -35,8 +56,10 @@ import Card from '../components/Card.astro';
 		</svg>
 		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
 		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
+			To get started, open the directory <code>src/pages</code> in your project.<br
+			/>
+			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message
+			above.
 		</p>
 		<ul role="list" class="link-card-grid">
 			<Card
@@ -99,7 +122,10 @@ import Card from '../components/Card.astro';
 	.instructions {
 		margin-bottom: 2rem;
 		border: 1px solid rgba(var(--accent-light), 25%);
-		background: linear-gradient(rgba(var(--accent-dark), 66%), rgba(var(--accent-dark), 33%));
+		background: linear-gradient(
+			rgba(var(--accent-dark), 66%),
+			rgba(var(--accent-dark), 33%)
+		);
 		padding: 1.5rem;
 		border-radius: 8px;
 	}
@@ -121,3 +147,4 @@ import Card from '../components/Card.astro';
 		padding: 0;
 	}
 </style>
+../scripts/webSocket

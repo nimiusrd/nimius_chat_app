@@ -1,6 +1,11 @@
+aioquic
+alpn
+ALPN
 autodocstring
 azcli
 azuretools
+datagram
+Datagram
 devcontainers
 foxundermoon
 jvmoptions
@@ -10,7 +15,11 @@ nimius
 njpwerner
 openai
 Pylance
+quic
+Quic
 shellformat
 timonwong
 twixes
 VOICEVOX
+websockets
+webtransport

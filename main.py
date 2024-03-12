@@ -1,25 +1,21 @@
 import asyncio
+import webbrowser
 
+import websockets
 from twitchAPI.chat import Chat
-from twitchAPI.oauth import UserAuthenticator
-from twitchAPI.twitch import Twitch
-from twitchAPI.type import AuthScope, ChatEvent
+from twitchAPI.type import ChatEvent
+from websockets import WebSocketServerProtocol
 
-from config import config
-from gui import app
-from logger import twitch_logger
-from twitch import create_gpt_comment, on_message, on_ready
-
-USER_SCOPE = [AuthScope.CHAT_READ, AuthScope.CHAT_EDIT]
+from logger import socket_logger, twitch_logger
+from twitch import apply_websocket, authenticate
 
 
-async def run():
-    twitch = await Twitch(config.twitch.app_id, config.twitch.app_secret)
-    auth = UserAuthenticator(twitch, USER_SCOPE)
-    token, refresh_token = await auth.authenticate()
-    await twitch.set_user_authentication(token, USER_SCOPE, refresh_token)
-
+async def handler(websocket: WebSocketServerProtocol) -> None:
+    socket_logger.info("Connected to client")
+    twitch = await authenticate()
     chat = await Chat(twitch)
+
+    create_gpt_comment, on_message, on_ready = await apply_websocket(websocket)
 
     chat.register_event(ChatEvent.READY, on_ready)
     chat.register_event(ChatEvent.MESSAGE, on_message)
@@ -29,17 +25,19 @@ async def run():
     chat.start()
 
     try:
-        input("")
+        async for message in websocket:
+            socket_logger.info(message)
     finally:
         twitch_logger.info("Closing chat")
         chat.stop()
         await twitch.close()
 
 
-def main():
-    asyncio.run(run())
+async def main():
+    async with websockets.serve(handler, "localhost", 8001):
+        webbrowser.open("http://localhost:4321")
+        await asyncio.Future()
 
 
 if __name__ == "__main__":
-    app.after(0, main)
-    app.mainloop()
+    asyncio.run(main())

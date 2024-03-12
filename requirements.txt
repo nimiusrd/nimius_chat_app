@@ -1,5 +1,5 @@
 Flask
-aioquic
+websockets
 twitchAPI
 openai
 requests

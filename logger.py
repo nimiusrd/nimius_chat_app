@@ -11,3 +11,4 @@ logging.basicConfig(
 twitch_logger = logging.getLogger("twitch")
 voicevox_logger = logging.getLogger("voicevox")
 gpt_logger = logging.getLogger("gpt")
+socket_logger = logging.getLogger("socket")
