@@ -1,3 +1,4 @@
+Flask
 twitchAPI
 openai
 requests
