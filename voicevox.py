@@ -1,34 +1,47 @@
 import requests
+from websockets import WebSocketServerProtocol
 
 from config import config
 from logger import voicevox_logger
 
 
-async def talk(text, websocket):
-    voicevox_logger.info("Talking to '%s'", text)
+def synthesize(text: str) -> bytes | None:
     try:
         query = requests.post(
             f"{config.voicevox.url}/audio_query",
             params={"text": text, "speaker": config.voicevox.speaker},
             timeout=1000,
         )
-
-        voicevox_logger.debug("query status: %d", query.status_code)
-
+    except Exception as e:
+        voicevox_logger.error("Failed to create audio query. %s", e)
+        return None
+    voicevox_logger.debug("query status: %d", query.status_code)
+    try:
         synthesis = requests.post(
             f"{config.voicevox.url}/synthesis",
             params={"speaker": config.voicevox.speaker},
             data=query.content,
             timeout=1000,
         )
+    except Exception as e:
+        voicevox_logger.error("Failed to synthesize audio. %s", e)
+        return None
+    voicevox_logger.debug("synthesis status: %d", synthesis.status_code)
 
-        voicevox_logger.debug("synthesis status: %d", synthesis.status_code)
+    return synthesis.content
 
-        await websocket.send(synthesis.content)
 
-        voicevox_logger.info("Successfully talked to '%s'", text)
-    except:
+async def talk(text: str, websocket: WebSocketServerProtocol) -> None:
+    voicevox_logger.info("Talking to '%s'", text)
+    if (content := synthesize(text)) is None:
         voicevox_logger.error("Failed to talk to '%s'", text)
+        return
+    try:
+        await websocket.send(text)
+        await websocket.send(content)
+    except Exception as e:
+        voicevox_logger.error("Failed to send audio to websocket. %s", e)
+    voicevox_logger.info("Successfully talked to '%s'", text)
 
 
 # if __name__ == "__main__":

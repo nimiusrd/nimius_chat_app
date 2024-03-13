@@ -1,6 +1,7 @@
 const initWebSocket = async (url: string): Promise<WebSocket> => new Promise((resolve, reject) => {
     console.log('Connecting to WebSocket:', url);
     const socket = new WebSocket(url);
+    socket.binaryType = 'arraybuffer';
 
     socket.onopen = () => {
         console.log('WebSocket connected:', url);
