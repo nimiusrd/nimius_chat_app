@@ -34,5 +34,5 @@ export const useWebSocket = async (url: string, onMessage?: (data: string) => vo
         }
     }
 
-    return { send, close };
+    return { send, close, socket };
 }
