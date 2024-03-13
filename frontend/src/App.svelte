@@ -1,19 +1,25 @@
 <script lang="ts">
-  import { onMount, setContext } from "svelte";
-  import { writable } from "svelte/store";
   import nimiusBot from "./assets/nimius_bot.png";
-  import Status from "./lib/Status.svelte";
   import { useWebSocket } from "./scripts/webSocket";
 
-  const socket = writable(null);
+  const onMessage = (data: Blob) => {
+    console.log("Message received: ", data);
 
-  setContext("socket", socket);
+    const audioContext = new AudioContext();
+    data.arrayBuffer().then((buffer) => {
+      audioContext.decodeAudioData(buffer, (audioBuffer) => {
+        const source = audioContext.createBufferSource();
+        source.buffer = audioBuffer;
+        const gainNode = audioContext.createGain();
+        gainNode.gain.value = 2;
+        source.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        source.start();
+      });
+    });
+  };
 
-  onMount(() => {
-    const { socket } = useWebSocket("ws://localhost:8001");
-
-    console.log("socket", socket);
-  });
+  let socket = useWebSocket("ws://localhost:8001", onMessage);
 </script>
 
 <main>
@@ -23,7 +29,13 @@
     </div>
   </div>
   <h1>WebSocket</h1>
-  <Status />
+  {#await socket}
+    <p>...waiting</p>
+  {:then}
+    <p>connected</p>
+  {:catch error}
+    <p style="color: red">{error.message}</p>
+  {/await}
 </main>
 
 <style>

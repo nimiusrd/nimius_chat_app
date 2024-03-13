@@ -14,7 +14,7 @@ const initWebSocket = async (url: string): Promise<WebSocket> => new Promise((re
     return socket;
 })
 
-export const useWebSocket = async (url: string, onMessage?: (data: string) => void) => {
+export const useWebSocket = async (url: string, onMessage?: (data: any) => void) => {
     const socket = await initWebSocket(url);
 
     const send = (data: string) => {
