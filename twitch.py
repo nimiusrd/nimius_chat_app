@@ -31,7 +31,7 @@ async def apply_websocket(websocket):
     async def on_ready(ready_event: EventData):
         twitch_logger.info("Bot is ready for work, joining channels")
         await ready_event.chat.join_room(config.twitch.target_channel)
-        await talk("準備完了しました。", websocket)
+        await talk("準備完了しました。", websocket, True)
 
     async def on_message(msg: ChatMessage):
         if is_command(msg.text):
@@ -46,6 +46,6 @@ async def apply_websocket(websocket):
             await talk(query, websocket)
         comment = create_comment(query)
         await cmd.send(comment)
-        await talk(comment, websocket)
+        await talk(comment, websocket, True)
 
     return create_gpt_comment, on_message, on_ready

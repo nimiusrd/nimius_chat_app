@@ -31,13 +31,16 @@ def synthesize(text: str) -> bytes | None:
     return synthesis.content
 
 
-async def talk(text: str, websocket: WebSocketServerProtocol) -> None:
+async def talk(
+    text: str, websocket: WebSocketServerProtocol, is_bot: bool = False
+) -> None:
     voicevox_logger.info("Talking to '%s'", text)
     if (content := synthesize(text)) is None:
         voicevox_logger.error("Failed to talk to '%s'", text)
         return
     try:
-        await websocket.send(text)
+        if is_bot:
+            await websocket.send(text)
         await websocket.send(content)
     except Exception as e:
         voicevox_logger.error("Failed to send audio to websocket. %s", e)

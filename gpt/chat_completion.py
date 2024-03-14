@@ -7,9 +7,9 @@ client = OpenAI(api_key=config.openai.api_key)
 
 import importlib
 
-from gpt.prompt import sonic_adventure2 as prompt
+from gpt.prompt import mbon as prompt
 
-# from gpt.prompt import mbon as prompt
+# from gpt.prompt import sonic_adventure2 as prompt
 
 
 def create_comment(query: str | None = None):

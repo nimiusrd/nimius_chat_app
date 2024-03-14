@@ -1,5 +1,4 @@
 import asyncio
-import webbrowser
 
 import websockets
 from twitchAPI.chat import Chat
@@ -35,8 +34,6 @@ async def handler(websocket: WebSocketServerProtocol) -> None:
 
 async def main():
     async with websockets.serve(handler, "localhost", 8001):
-        socket_logger.info("open http://localhost:5173")
-        webbrowser.open("http://localhost:5173")
         await asyncio.Future()
 
 

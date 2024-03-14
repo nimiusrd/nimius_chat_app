@@ -23,5 +23,6 @@
   .text-container {
     width: 100%;
     text-align: justify;
+    font-size: 32px;
   }
 </style>

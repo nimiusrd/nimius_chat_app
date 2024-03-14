@@ -9,7 +9,7 @@ target_channel = 'xxxxxxxxxx'
 
 [voicevox]
 speaker = 6
-host = 'localhost'
+host = 'host.docker.internal'
 port = 50021
 
 [openai]
