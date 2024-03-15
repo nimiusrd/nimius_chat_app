@@ -1,8 +1,7 @@
 import requests
-from websockets import WebSocketServerProtocol
-
 from config import config
 from logger import voicevox_logger
+from websockets import WebSocketServerProtocol
 
 
 def synthesize(text: str) -> bytes | None:

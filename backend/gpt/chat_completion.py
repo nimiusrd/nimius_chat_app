@@ -1,7 +1,6 @@
-from openai import OpenAI
-
 from config import config
 from logger import gpt_logger
+from openai import OpenAI
 
 client = OpenAI(api_key=config.openai.api_key)
 

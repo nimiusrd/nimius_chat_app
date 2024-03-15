@@ -1,12 +1,11 @@
 import asyncio
 
 import websockets
+from logger import socket_logger, twitch_logger
+from twitch import apply_websocket, authenticate
 from twitchAPI.chat import Chat
 from twitchAPI.type import ChatEvent
 from websockets import WebSocketServerProtocol
-
-from logger import socket_logger, twitch_logger
-from twitch import apply_websocket, authenticate
 
 
 async def handler(websocket: WebSocketServerProtocol) -> None:

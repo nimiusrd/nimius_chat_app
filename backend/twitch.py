@@ -1,11 +1,10 @@
+from config import config
+from gpt.chat_completion import create_comment
+from logger import twitch_logger
 from twitchAPI.chat import ChatCommand, ChatMessage, EventData
 from twitchAPI.oauth import UserAuthenticator
 from twitchAPI.twitch import Twitch
 from twitchAPI.type import AuthScope
-
-from config import config
-from gpt.chat_completion import create_comment
-from logger import twitch_logger
 from voicevox import talk
 
 USER_SCOPE = [AuthScope.CHAT_READ, AuthScope.CHAT_EDIT]
