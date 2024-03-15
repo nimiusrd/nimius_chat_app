@@ -11,7 +11,7 @@
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "pip3 install --user -r requirements.txt",
+	"postCreateCommand": "(cd backend && pip3 install --user -r requirements.txt) && (cd frontend && npm i)",
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
@@ -28,11 +28,17 @@
 				"black-formatter.path": [
 					"/home/vscode/.local/bin/black"
 				],
+				"black-formatter.cwd": "${workspaceFolder}/backend",
+				"black-formatter.showNotifications": "always",
 				"flake8.path": [
 					"/home/vscode/.local/bin/flake8"
 				],
+				"flake8.cwd": "${workspaceFolder}/backend",
 				"mypy-type-checker.path": [
 					"/home/vscode/.local/bin/mypy"
+				],
+				"mypy.targets": [
+					"./backend"
 				],
 				"pylint.args": [
 					"--enable-all-extensions"
@@ -48,6 +54,7 @@
 				"pylint.path": [
 					"/home/vscode/.local/bin/pylint"
 				],
+				"pylint.cwd": "${workspaceFolder}/backend",
 				"[python]": {
 					"editor.defaultFormatter": "ms-python.black-formatter",
 					"editor.formatOnSave": true

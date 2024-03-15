@@ -30,9 +30,7 @@ def synthesize(text: str) -> bytes | None:
     return synthesis.content
 
 
-async def talk(
-    text: str, websocket: WebSocketServerProtocol, is_bot: bool = False
-) -> None:
+async def talk(text: str, websocket: WebSocketServerProtocol, is_bot: bool = False) -> None:
     voicevox_logger.info("Talking to '%s'", text)
     if (content := synthesize(text)) is None:
         voicevox_logger.error("Failed to talk to '%s'", text)
@@ -44,7 +42,3 @@ async def talk(
     except Exception as e:
         voicevox_logger.error("Failed to send audio to websocket. %s", e)
     voicevox_logger.info("Successfully talked to '%s'", text)
-
-
-# if __name__ == "__main__":
-#     talk("こんにちは、私はボイスボックスです。")

@@ -1,0 +1,4 @@
+[flake8]
+ignore = PL123
+max-line-length = 120
+max-complexity = 10
