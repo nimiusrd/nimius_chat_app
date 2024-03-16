@@ -1,18 +1,16 @@
-import importlib
-
 from config import config
-from gpt.prompt import mbon as prompt
+
+# from gpt.prompt import mbon as prompt
+from gpt.prompt import sonic_adventure2 as prompt
 from logger import gpt_logger
 from openai import OpenAI
-
-# from gpt.prompt import sonic_adventure2 as prompt
 
 client = OpenAI(api_key=config.openai.api_key)
 
 
 def create_comment(query: str | None = None):
     gpt_logger.info("Loading messages.")
-    messages = importlib.reload(prompt).messages
+    messages = prompt.messages
     gpt_logger.info("Messages loaded.")
     gpt_logger.info("Creating chat completion.")
     response = client.chat.completions.create(

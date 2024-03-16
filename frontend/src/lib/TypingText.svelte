@@ -23,6 +23,8 @@
   .text-container {
     width: 100%;
     text-align: justify;
-    font-size: 32px;
+    font-size: 24px;
+    line-height: 1;
+    padding-top: 1rem;
   }
 </style>

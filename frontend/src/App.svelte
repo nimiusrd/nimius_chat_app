@@ -24,12 +24,6 @@
   };
 
   let webSocket = useWebSocket("ws://localhost:8001", onMessage);
-  document.addEventListener("ended", (event) => {
-    console.log(
-      "1）動画が終了した、または 2）それ以上データがない" +
-        "ため、動画が停止しました。",
-    );
-  });
 </script>
 
 <main>
@@ -65,7 +59,7 @@
   .container {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
   }
 </style>
