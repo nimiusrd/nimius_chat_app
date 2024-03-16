@@ -25,6 +25,6 @@
     text-align: justify;
     font-size: 24px;
     line-height: 1;
-    padding-top: 1rem;
+    align-self: center;
   }
 </style>
