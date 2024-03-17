@@ -19,10 +19,10 @@ def create_comment(query: str | None = None):
             messages
             if query == "" or query is None
             else [
-                messages[0],
+                *messages[:-1],
                 {
                     "role": "user",
-                    "content": f"""次の質問に100文字以内で回答してください。${query}""",
+                    "content": f"""次の質問に200文字以内で回答してください。${query}""",
                 },
             ]
         ),
