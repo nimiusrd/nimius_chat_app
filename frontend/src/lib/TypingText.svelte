@@ -23,7 +23,7 @@
   .text-container {
     width: 100%;
     text-align: justify;
-    font-size: 24px;
+    font-size: 28px;
     line-height: 1;
     align-self: center;
   }

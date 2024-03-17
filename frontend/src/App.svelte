@@ -49,7 +49,7 @@
 
 <style>
   .logo {
-    height: 6em;
+    height: 125px;
     will-change: filter;
     transition: filter 300ms;
   }
