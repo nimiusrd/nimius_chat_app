@@ -9,7 +9,11 @@
 		"ghcr.io/devcontainers/features/node:1": {}
 	},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	"forwardPorts": [
+		5173,
+		8001,
+		17563
+	],
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "(cd backend && pip3 install --user -r requirements.txt) && (cd frontend && npm i)",
 	// Configure tool-specific properties.
