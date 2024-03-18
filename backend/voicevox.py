@@ -4,11 +4,11 @@ from logger import voicevox_logger
 from websockets import WebSocketServerProtocol
 
 
-def synthesize(text: str) -> bytes | None:
+def synthesize(text: str, is_bot: bool) -> bytes | None:
     try:
         query = requests.post(
             f"{config.voicevox.url}/audio_query",
-            params={"text": text, "speaker": config.voicevox.speaker},
+            params={"text": text, "speaker": config.voicevox.speaker if is_bot else config.voicevox.bot_speaker},
             timeout=1000,
         )
     except Exception as e:
@@ -32,7 +32,7 @@ def synthesize(text: str) -> bytes | None:
 
 async def talk(text: str, websocket: WebSocketServerProtocol, is_bot: bool = False) -> None:
     voicevox_logger.info("Talking to '%s'", text)
-    if (content := synthesize(text)) is None:
+    if (content := synthesize(text, is_bot)) is None:
         voicevox_logger.error("Failed to talk to '%s'", text)
         return
     try:

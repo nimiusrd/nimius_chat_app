@@ -1,5 +1,5 @@
 from config import config
-from gpt.chat_completion import create_comment
+from gpt.chat_completion import create_comment, create_translation
 from logger import twitch_logger
 from twitchAPI.chat import ChatCommand, ChatMessage, EventData
 from twitchAPI.oauth import UserAuthenticator
@@ -37,6 +37,9 @@ async def apply_websocket(websocket):
             return
         twitch_logger.info("%s said: %s", msg.user.name, msg.text)
         await talk(msg.text, websocket)
+        translation = create_translation(msg.text)
+        twitch_logger.info("Translation: %s", translation)
+        await msg.reply(f"🤖{translation}")
 
     async def create_gpt_comment(cmd: ChatCommand):
         twitch_logger.info("Creating GPT comment")
@@ -46,5 +49,8 @@ async def apply_websocket(websocket):
         comment = create_comment(query)
         await cmd.send(comment)
         await talk(comment, websocket, True)
+        translation = create_translation(comment)
+        twitch_logger.info("Translation: %s", translation)
+        await cmd.send(f"🤖{translation}")
 
     return create_gpt_comment, on_message, on_ready

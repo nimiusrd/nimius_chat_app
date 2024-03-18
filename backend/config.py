@@ -46,6 +46,10 @@ class VOICEVOXConfig:
     speaker : int
         Speaker ID. You can get it from http://localhost:50021/speakers.
 
+    bot_speaker : int
+        Bot speaker ID. You can get it from http://localhost:50021/speakers.
+        If you don't set bot speaker ID, use speaker ID.
+
     url : str
         VOICEVOX API URL.
 
@@ -54,6 +58,7 @@ class VOICEVOXConfig:
     """
 
     speaker: int
+    bot_speaker: int
     url: str
     output: str = "dist/output.wav"
 
@@ -83,6 +88,7 @@ def read_config():
         ),
         voicevox=VOICEVOXConfig(
             speaker=voicevox["speaker"],
+            bot_speaker=voicevox.get("bot_speaker", voicevox["speaker"]),
             url=f'http://{voicevox.get("host", "localhost")}:{voicevox.get("port", 50021)}',
             output=voicevox.get("output", "frontend/public/output.wav"),
         ),
