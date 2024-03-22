@@ -8,7 +8,7 @@ def synthesize(text: str, is_bot: bool) -> bytes | None:
     try:
         query = requests.post(
             f"{config.voicevox.url}/audio_query",
-            params={"text": text, "speaker": config.voicevox.speaker if is_bot else config.voicevox.bot_speaker},
+            params={"text": text, "speaker": config.voicevox.bot_speaker if is_bot else config.voicevox.speaker},
             timeout=1000,
         )
     except Exception as e:
@@ -18,7 +18,7 @@ def synthesize(text: str, is_bot: bool) -> bytes | None:
     try:
         synthesis = requests.post(
             f"{config.voicevox.url}/synthesis",
-            params={"speaker": config.voicevox.speaker},
+            params={"speaker": config.voicevox.bot_speaker if is_bot else config.voicevox.speaker},
             data=query.content,
             timeout=1000,
         )
