@@ -13,10 +13,11 @@ async def handler(websocket: WebSocketServerProtocol) -> None:
     twitch = await authenticate()
     chat = await Chat(twitch)
 
-    create_gpt_comment, on_message, on_ready = await apply_websocket(websocket)
+    create_gpt_comment, on_message, on_ready, on_join = await apply_websocket(websocket)
 
     chat.register_event(ChatEvent.READY, on_ready)
     chat.register_event(ChatEvent.MESSAGE, on_message)
+    chat.register_event(ChatEvent.JOIN, on_join)
     chat.register_command("gpt", create_gpt_comment)
 
     twitch_logger.info("Starting chat")

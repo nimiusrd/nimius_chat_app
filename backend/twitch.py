@@ -1,7 +1,7 @@
 from config import config
 from gpt.chat_completion import create_comment, create_translation
 from logger import twitch_logger
-from twitchAPI.chat import ChatCommand, ChatMessage, EventData
+from twitchAPI.chat import ChatCommand, ChatMessage, EventData, JoinEvent
 from twitchAPI.oauth import UserAuthenticator
 from twitchAPI.twitch import Twitch
 from twitchAPI.type import AuthScope
@@ -41,6 +41,9 @@ async def apply_websocket(websocket):
         twitch_logger.info("Translation: %s", translation)
         await msg.reply(f"🤖{translation}")
 
+    async def on_join(event: JoinEvent):
+        twitch_logger.info("Joined channel %s", event.user_name)
+
     async def create_gpt_comment(cmd: ChatCommand):
         twitch_logger.info("Creating GPT comment")
         query = cmd.parameter
@@ -53,4 +56,4 @@ async def apply_websocket(websocket):
         twitch_logger.info("Translation: %s", translation)
         await cmd.send(f"🤖{translation}")
 
-    return create_gpt_comment, on_message, on_ready
+    return create_gpt_comment, on_message, on_ready, on_join
