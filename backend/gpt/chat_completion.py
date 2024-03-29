@@ -1,6 +1,6 @@
 # from gpt.prompt import mbon as prompt
 from config import config
-from gpt.prompt.sonic_adventure2 import prompt
+from gpt.prompt.mbon import prompt
 from gpt.prompt.translation import prompt as translation
 from logger import gpt_logger
 from openai import OpenAI
