@@ -1,6 +1,7 @@
-# from gpt.prompt import mbon as prompt
 from config import config
-from gpt.prompt.mbon import prompt
+from gpt.prompt.mameda_no_bakeru import prompt
+
+# from gpt.prompt.mbon import prompt
 from gpt.prompt.translation import prompt as translation
 from logger import gpt_logger
 from openai import OpenAI
@@ -35,4 +36,4 @@ def create_translation(query: str | None = None):
 if __name__ == "__main__":
     import sys
 
-    print(create_translation(sys.argv[1] if len(sys.argv) > 1 else None))
+    print(create_comment(sys.argv[1] if len(sys.argv) > 1 else None))
