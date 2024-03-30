@@ -22,7 +22,7 @@ prompt = TranslationGPTPrompt(
     messages=[
         {
             "role": "system",
-            "content": "あなたは英語か日本語が与えられます。英語ならば日本語に翻訳してください。日本語ならば英語に翻訳してください。",
+            "content": "あなたは日本語の話者の通訳です。日本語以外の言語ならば日本語に翻訳してください。日本語ならば英語に翻訳してください。",
         },
         {"role": "user", "content": "My name is Jane. What is yours?"},
         {"role": "assistant", "content": "私の名前はジェーンです。あなたの名前は何ですか？"},

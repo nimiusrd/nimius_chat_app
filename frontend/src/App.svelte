@@ -4,20 +4,33 @@
   import { useWebSocket } from "./scripts/webSocket";
 
   $: text = "connected";
+  $: promiseChain = Promise.resolve(0);
 
   const onMessage = (data: ArrayBuffer | string) => {
-    console.log("Message received: ", data);
     if (data instanceof ArrayBuffer) {
-      const audioContext = new AudioContext();
-      audioContext.decodeAudioData(data, (audioBuffer) => {
-        const source = audioContext.createBufferSource();
-        source.buffer = audioBuffer;
-        const gainNode = audioContext.createGain();
-        gainNode.gain.value = 2;
-        source.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        source.start();
-      });
+      promiseChain = promiseChain.then(
+        (id) =>
+          new Promise((resolve, reject) => {
+            console.log("Playing audio", id);
+            const audioContext = new AudioContext();
+            audioContext.decodeAudioData(data).then((audioBuffer) => {
+              const source = audioContext.createBufferSource();
+              source.buffer = audioBuffer;
+              const gainNode = audioContext.createGain();
+              gainNode.gain.value = 2;
+              source.connect(gainNode);
+              gainNode.connect(audioContext.destination);
+              source.start();
+              source.onended = () => {
+                console.log("Audio ended", id);
+                source.disconnect();
+                gainNode.disconnect();
+                audioContext.close();
+                resolve(id + 1);
+              };
+            });
+          }),
+      );
     } else {
       text = data;
     }
