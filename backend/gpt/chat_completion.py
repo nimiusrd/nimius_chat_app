@@ -1,5 +1,5 @@
 from config import config
-from gpt.prompt.mameda_no_bakeru import prompt
+from gpt.prompt.gbvsr import prompt
 
 # from gpt.prompt.mbon import prompt
 from gpt.prompt.translation import prompt as translation
