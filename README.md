@@ -15,3 +15,8 @@ port = 50021
 [openai]
 api_key = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 ```
+
+Create `terraform.tfvars`.
+```bash
+project = "<PROJECT_ID>"
+```
