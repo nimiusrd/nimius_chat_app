@@ -18,6 +18,7 @@ Pylance
 quic
 Quic
 shellformat
+texttospeech
 timonwong
 twixes
 VOICEVOX
