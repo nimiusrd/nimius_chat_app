@@ -3,10 +3,10 @@
 import tomllib
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Literal
+from typing import Final, Literal
 
-CLOUD_TEXT_TO_SPEECH = Literal["cloud_text_to_speech"]
-VOICEVOX = Literal["voicevox"]
+CLOUD_TEXT_TO_SPEECH: Final = "cloud_text_to_speech"
+VOICEVOX: Final = "voicevox"
 
 
 @dataclass
@@ -74,7 +74,7 @@ class Config:
     twitch: TwitchConfig
     voicevox: VOICEVOXConfig
     openai: OpenAIConfig
-    speech_synthesizer: CLOUD_TEXT_TO_SPEECH | VOICEVOX
+    speech_synthesizer: Literal["cloud_text_to_speech", "voicevox"]
 
 
 def read_config():
