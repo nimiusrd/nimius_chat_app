@@ -39,6 +39,7 @@ class TwitchConfig:
     app_id: str
     app_secret: str
     target_channel: str
+    frontend_url: str
 
 
 @dataclass
@@ -90,6 +91,7 @@ def read_config():
             app_id=twitch["app_id"],
             app_secret=twitch["app_secret"],
             target_channel=twitch["target_channel"],
+            frontend_url=twitch["frontend_url"],
         ),
         voicevox=VOICEVOXConfig(
             speaker=voicevox["speaker"],

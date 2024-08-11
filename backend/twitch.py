@@ -21,11 +21,11 @@ BOT_ACCOUNT_LIST = [
 
 async def authenticate():
     twitch = await Twitch(config.twitch.app_id, config.twitch.app_secret)
-    auth = UserAuthenticator(twitch, USER_SCOPE)
+    auth = UserAuthenticator(twitch, USER_SCOPE, url="http://0.0.0.0:8080/login/confirm")
     token, refresh_token = await auth.authenticate()
     await twitch.set_user_authentication(token, USER_SCOPE, refresh_token)
 
-    return twitch
+    return twitch, auth
 
 
 def is_command(text: str) -> bool:
