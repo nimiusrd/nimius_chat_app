@@ -1,7 +1,6 @@
 FROM node:lts-alpine
 
 RUN npm install -g firebase-tools
-ADD firebase.sh /usr/bin
-RUN chmod +x /usr/bin/firebase.sh
+COPY --chmod=755 firebase.sh /usr/bin/
 
-ENTRYPOINT [ "/usr/bin/firebase.sh" ]
+CMD [ "/usr/bin/firebase.sh" ]
