@@ -11,7 +11,7 @@ steps:
   script: |
     #!/usr/bin/env bash
     npm install -g firebase-tools
-    firebase use --add $PROJECT_ID
+    firebase use $PROJECT_ID --alias default
     firebase deploy --only hosting
 options:
   logging: CLOUD_LOGGING_ONLY
