@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM node:lts-slim
 
 RUN npm install -g firebase-tools
 COPY --chmod=755 firebase.sh /usr/bin/
