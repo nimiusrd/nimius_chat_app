@@ -1,6 +1,5 @@
 steps:
 - name: 'ubuntu'
-  entrypoint: 'bash'
   script: |
     #!/usr/bin/env bash
     wget -qO- https://firebase.tools | bash
