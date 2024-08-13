@@ -1,15 +1,14 @@
 steps:
 - name: 'node'
   entrypoint: 'npm'
-  args: ['install', '-g', 'firebase-tools']
-  dir: 'frontend'
-- name: 'node'
-  entrypoint: 'npm'
   args: ['install']
   dir: 'frontend'
 - name: 'node'
   entrypoint: 'npm'
   args: ['run', 'build']
   dir: 'frontend'
+- name: 'ubuntu'
+  script: |
+    firebase deploy --only hosting
 options:
   logging: CLOUD_LOGGING_ONLY
