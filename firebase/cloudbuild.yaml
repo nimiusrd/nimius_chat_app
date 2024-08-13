@@ -1,0 +1,10 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  env:
+  - DOCKER_BUILDKIT=1
+  args: ['build', '-t', '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/builder/firebase:latest', '.']
+  dir: 'firebase'
+images:
+- '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/builder/firebase:latest'
+options:
+  logging: CLOUD_LOGGING_ONLY

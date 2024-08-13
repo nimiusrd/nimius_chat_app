@@ -16,7 +16,10 @@ const initWebSocket = async (url: string): Promise<WebSocket> => new Promise((re
 })
 
 export const useWebSocket = async (url: string, onMessage?: (data: any) => void) => {
-    const socket = await initWebSocket(url);
+    if (window.location.search === '') {
+        window.location.replace(`${import.meta.env.VITE_SERVER_URL}/login`);
+    }
+    const socket = await initWebSocket(url + window.location.search);
 
     const send = (data: string) => {
         console.log('Sending:', data);

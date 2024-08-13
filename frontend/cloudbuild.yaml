@@ -1,0 +1,15 @@
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['secrets', 'versions', 'access', 'latest', '--secret', 'frontend_dotenv', '--out-file', 'frontend/.env']
+- name: 'node'
+  entrypoint: 'npm'
+  args: ['install']
+  dir: 'frontend'
+- name: 'node'
+  entrypoint: 'npm'
+  args: ['run', 'build']
+  dir: 'frontend'
+- name: '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/builder/firebase'
+  args: ['deploy', '--only', 'hosting', '--project', '$PROJECT_ID']
+options:
+  logging: CLOUD_LOGGING_ONLY

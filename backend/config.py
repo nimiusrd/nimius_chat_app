@@ -3,6 +3,10 @@
 import tomllib
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Final, Literal
+
+CLOUD_TEXT_TO_SPEECH: Final = "cloud_text_to_speech"
+VOICEVOX: Final = "voicevox"
 
 
 @dataclass
@@ -35,6 +39,7 @@ class TwitchConfig:
     app_id: str
     app_secret: str
     target_channel: str
+    frontend_url: str
 
 
 @dataclass
@@ -70,6 +75,7 @@ class Config:
     twitch: TwitchConfig
     voicevox: VOICEVOXConfig
     openai: OpenAIConfig
+    speech_synthesizer: Literal["cloud_text_to_speech", "voicevox"]
 
 
 def read_config():
@@ -85,6 +91,7 @@ def read_config():
             app_id=twitch["app_id"],
             app_secret=twitch["app_secret"],
             target_channel=twitch["target_channel"],
+            frontend_url=twitch["frontend_url"],
         ),
         voicevox=VOICEVOXConfig(
             speaker=voicevox["speaker"],
@@ -93,6 +100,7 @@ def read_config():
             output=voicevox.get("output", "frontend/public/output.wav"),
         ),
         openai=OpenAIConfig(api_key=openai["api_key"]),
+        speech_synthesizer=data["speech_synthesizer"],
     )
 
 
