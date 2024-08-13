@@ -1,4 +1,6 @@
 steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['secrets', 'versions', 'access', 'latest', '--secret', 'frontend_dotenv', '--out-file', 'frontend/.env']
 - name: 'node'
   entrypoint: 'npm'
   args: ['install']
