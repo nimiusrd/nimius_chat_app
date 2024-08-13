@@ -1,0 +1,12 @@
+workingDir: './frontend'
+
+steps:
+- name: 'ubuntu'
+  entrypoint: 'bash'
+  args: ['curl', '-sL', 'https://firebase.tools', '|', 'bash']
+- name: 'node'
+  entrypoint: 'npm'
+  args: ['install']
+- name: 'node'
+  entrypoint: 'npm'
+  args: ['run', 'build']
