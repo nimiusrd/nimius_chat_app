@@ -1,5 +1,3 @@
-workingDir: './frontend'
-
 steps:
 - name: 'ubuntu'
   entrypoint: 'bash'
@@ -7,6 +5,8 @@ steps:
 - name: 'node'
   entrypoint: 'npm'
   args: ['install']
+  dir: 'frontend'
 - name: 'node'
   entrypoint: 'npm'
   args: ['run', 'build']
+  dir: 'frontend'
