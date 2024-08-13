@@ -8,6 +8,6 @@ steps:
   args: ['run', 'build']
   dir: 'frontend'
 - name: '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/builder/firebase'
-  args: ['deploy', '--only', 'hosting']
+  args: ['deploy', '--only', 'hosting', '--project', '$PROJECT_ID']
 options:
   logging: CLOUD_LOGGING_ONLY
