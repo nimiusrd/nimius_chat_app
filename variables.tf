@@ -40,3 +40,18 @@ variable "firebase_app_site_id" {
   type        = string
   description = "The ID of the Firebase app's site"
 }
+
+variable "backend_service_name" {
+  type        = string
+  description = "The name of the backend service"
+}
+
+variable "github_repo_name" {
+  description = "The name of the GitHub repository"
+  type        = string
+}
+
+variable "github_owner" {
+  description = "The owner of the GitHub repository"
+  type        = string
+}
