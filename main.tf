@@ -166,7 +166,7 @@ resource "google_cloudbuild_trigger" "deploy-to-cloud-run" {
     owner = var.github_owner
     name  = var.github_repo_name
     push {
-      branch = "master"
+      branch = "main"
     }
   }
 
@@ -191,7 +191,7 @@ resource "google_cloudbuild_trigger" "deploy-to-firebase-hosting" {
     owner = var.github_owner
     name  = var.github_repo_name
     push {
-      branch = "master"
+      branch = "main"
     }
   }
 
