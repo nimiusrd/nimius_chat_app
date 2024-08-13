@@ -3,7 +3,7 @@ steps:
     args: ['secrets', 'versions', 'access', 'latest', '--secret', 'backend_config_secret', '--out-file', 'backend/config.toml']
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t',
-          '${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/backend/chat-app:${SHORT_SHA}', '.']
+          '${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/backend/chat-app:${SHORT_SHA}', 'backend']
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', '${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/backend/chat-app:${SHORT_SHA}']
   - name: 'gcr.io/cloud-builders/gcloud'
