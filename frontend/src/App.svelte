@@ -36,7 +36,7 @@
     }
   };
 
-  let webSocket = useWebSocket("ws://localhost:8001", onMessage);
+  let webSocket = useWebSocket(import.meta.env.VITE_SERVER_URL, onMessage);
 </script>
 
 <main>
@@ -56,7 +56,8 @@
       <span>Disconnected</span>
     {/if}
   {:catch error}
-    <span style="color: red">{error.message}</span>
+    <span style="color: red">Something went wrong</span>
+    <a href={window.location.host + window.location.pathname}>Reconnect</a>
   {/await}
 </main>
 
