@@ -1,0 +1,17 @@
+# 'cloud_text_to_speech' or 'voicevox'
+speech_synthesizer = 'cloud_text_to_speech'
+
+[twitch]
+app_id = ''
+app_secret = ''
+target_channel = ''
+frontend_url = 'http://localhost:500
+
+[voicevox]
+speaker = 6
+bot_speaker = 8
+host = 'host.docker.internal'
+port = 50021
+
+[openai]
+api_key = ''
