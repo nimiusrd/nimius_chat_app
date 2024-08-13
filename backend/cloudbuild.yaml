@@ -1,6 +1,6 @@
 steps:
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['secrets', 'versions', 'access', 'latest', '--secret', 'backend_config_secret', '--out-file', 'backend/config.toml']
+    args: ['secrets', 'versions', 'access', 'latest', '--secret', 'backend_config_toml', '--out-file', 'backend/config.toml']
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t',
           '${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/backend/${_SERVICE_NAME}:${SHORT_SHA}', 'backend']
