@@ -12,5 +12,7 @@ steps:
          '--region', '${_LOCATION}',
          '--platform', 'managed',
          '--allow-unauthenticated']
+options:
+  logging: CLOUD_LOGGING_ONLY
 images:
   - ${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/backend/chat-app:${SHORT_SHA}
