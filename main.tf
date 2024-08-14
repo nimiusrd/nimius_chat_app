@@ -129,6 +129,13 @@ resource "google_artifact_registry_repository" "backend" {
 
   cleanup_policy_dry_run = false
   cleanup_policies {
+    id     = "delete-all-images"
+    action = "DELETE"
+    condition {
+
+    }
+  }
+  cleanup_policies {
     id     = "keep-latest-version"
     action = "KEEP"
     most_recent_versions {
@@ -145,6 +152,14 @@ resource "google_artifact_registry_repository" "builder" {
   description   = "Docker repository for builder images"
   format        = "DOCKER"
 
+  cleanup_policy_dry_run = false
+  cleanup_policies {
+    id     = "delete-all-images"
+    action = "DELETE"
+    condition {
+
+    }
+  }
   cleanup_policies {
     id     = "keep-latest-version"
     action = "KEEP"
