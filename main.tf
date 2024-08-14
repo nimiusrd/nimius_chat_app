@@ -126,6 +126,15 @@ resource "google_artifact_registry_repository" "backend" {
   repository_id = "backend"
   description   = "Docker repository for the backend service"
   format        = "DOCKER"
+
+  cleanup_policy_dry_run = false
+  cleanup_policies {
+    id     = "keep-latest-version"
+    action = "KEEP"
+    most_recent_versions {
+      keep_count = 1
+    }
+  }
 }
 
 resource "google_artifact_registry_repository" "builder" {
@@ -135,6 +144,14 @@ resource "google_artifact_registry_repository" "builder" {
   repository_id = "builder"
   description   = "Docker repository for builder images"
   format        = "DOCKER"
+
+  cleanup_policies {
+    id     = "keep-latest-version"
+    action = "KEEP"
+    most_recent_versions {
+      keep_count = 1
+    }
+  }
 }
 
 resource "google_service_account" "cloud_build_sa" {
