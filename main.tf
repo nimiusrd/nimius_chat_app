@@ -259,6 +259,26 @@ resource "google_cloudbuild_trigger" "create-firebase-builder" {
   }
 }
 
+resource "google_cloudbuild_trigger" "run-terraform-apply" {
+  project = google_project.default.project_id
+  name    = "run-terraform-apply"
+
+  github {
+    owner = var.github_owner
+    name  = var.github_repo_name
+    push {
+      branch = "main"
+    }
+  }
+
+  included_files = [
+    "*.tf",
+  ]
+
+  filename        = "cloudbuild.terraform.yaml"
+  service_account = google_service_account.cloud_build_sa.id
+}
+
 output "config" {
   value = {
     projectId         = google_firebase_project.default.project
