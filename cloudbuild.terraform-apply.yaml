@@ -1,0 +1,13 @@
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['secrets', 'versions', 'access', 'latest', '--secret', 'terraform_tfvars', '--out-file', 'terraform.tfvars']
+- name: 'hashicorp/terraform:light'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+    terraform init
+    terraform plan -out=tfplan
+    terraform apply -auto-approve tfplan
+options:
+  logging: CLOUD_LOGGING_ONLY
