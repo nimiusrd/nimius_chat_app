@@ -88,6 +88,15 @@ resource "google_firebase_hosting_site" "default" {
   app_id   = google_firebase_web_app.default.app_id
 }
 
+resource "google_secret_manager_secret" "terraform_tfvars" {
+  project   = google_project.default.project_id
+  secret_id = "terraform_tfvars"
+
+  replication {
+    auto {}
+  }
+}
+
 resource "google_secret_manager_secret" "backend_config_toml" {
   project   = google_project.default.project_id
   secret_id = "backend_config_toml"
@@ -259,6 +268,49 @@ resource "google_cloudbuild_trigger" "create-firebase-builder" {
   }
 }
 
+resource "google_cloudbuild_trigger" "run-terraform-apply" {
+  project = google_project.default.project_id
+  name    = "run-terraform-apply"
+
+  github {
+    owner = var.github_owner
+    name  = var.github_repo_name
+    push {
+      branch = "main"
+    }
+  }
+
+  included_files = [
+    "*.tf",
+  ]
+
+  filename        = "cloudbuild.terraform-apply.yaml"
+  service_account = google_service_account.cloud_build_sa.id
+  approval_config {
+    approval_required = true
+  }
+}
+
+resource "google_cloudbuild_trigger" "run-terraform-plan" {
+  project = google_project.default.project_id
+  name    = "run-terraform-plan"
+
+  github {
+    owner = var.github_owner
+    name  = var.github_repo_name
+    push {
+      branch = ".*"
+    }
+  }
+
+  included_files = [
+    "*.tf",
+  ]
+
+  filename        = "cloudbuild.terraform-plan.yaml"
+  service_account = google_service_account.cloud_build_sa.id
+}
+
 output "config" {
   value = {
     projectId         = google_firebase_project.default.project
@@ -277,6 +329,7 @@ output "need-to-set-secret" {
     url                 = "https://console.cloud.google.com/security/secret-manager?project=${google_project.default.project_id}"
     backend_config_toml = google_secret_manager_secret.backend_config_toml.id
     frontend_dotenv     = google_secret_manager_secret.frontend_dotenv.id
+    terraform_tfvars    = google_secret_manager_secret.terraform_tfvars.id
   }
 }
 
