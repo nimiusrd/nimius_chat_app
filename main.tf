@@ -193,6 +193,7 @@ resource "google_project_iam_member" "cloud_build_sa_member" {
     "roles/secretmanager.secretAccessor",
     "roles/run.admin",
     "roles/firebase.admin",
+    "roles/artifactregistry.admin",
   ])
   project = google_project.default.project_id
   role    = each.key
