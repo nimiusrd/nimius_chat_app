@@ -2,7 +2,7 @@ steps:
 - name: 'gcr.io/cloud-builders/gcloud'
   args: ['secrets', 'versions', 'access', 'latest', '--secret', 'terraform_tfvars', '--out-file', 'terraform.tfvars']
 - name: 'gcr.io/cloud-builders/gsutil'
-  args: ['cp', 'gs://${PROJECT_ID}-tfstate/path/to/terraform.tfstate', 'terraform.tfstate']
+  args: ['cp', 'gs://${PROJECT_ID}-tfstate/terraform.tfstate', 'terraform.tfstate']
 - name: 'hashicorp/terraform:light'
   entrypoint: 'sh'
   args:
