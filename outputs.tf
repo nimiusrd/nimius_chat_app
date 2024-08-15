@@ -23,8 +23,9 @@ output "need-to-set-secret" {
 output "service-account" {
   description = "Service account for Artifact Registry"
   value = {
-    artifact_registry = google_service_account.artifact_registry_sa.email
-    cloud_build       = google_service_account.cloud_build_sa.email
+    artifact_registry           = google_service_account.artifact_registry_sa.email
+    cloud_build                 = google_service_account.cloud_build_sa.email
+    cloud_build_terraform_admin = google_service_account.cloud_build_terraform_admin_sa.email
   }
 }
 
