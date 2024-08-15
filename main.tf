@@ -323,6 +323,7 @@ resource "google_cloudbuild_trigger" "run-terraform-apply" {
 
   included_files = [
     "*.tf",
+    "cloudbuild.terraform-apply.yaml"
   ]
 
   filename        = "cloudbuild.terraform-apply.yaml"
@@ -346,6 +347,7 @@ resource "google_cloudbuild_trigger" "run-terraform-plan" {
 
   included_files = [
     "*.tf",
+    "cloudbuild.terraform-plan.yaml"
   ]
 
   filename        = "cloudbuild.terraform-plan.yaml"
