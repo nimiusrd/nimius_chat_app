@@ -235,6 +235,7 @@ resource "google_project_iam_member" "cloud_build_sa_member" {
     "roles/run.admin",
     "roles/firebase.admin",
     "roles/artifactregistry.admin",
+    "roles/secretmanager.viewer"
   ])
   project = google_project.default.project_id
   role    = each.key
