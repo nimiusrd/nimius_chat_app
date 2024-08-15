@@ -218,31 +218,6 @@ resource "google_artifact_registry_repository" "builder" {
   }
 }
 
-resource "google_service_account" "cloud_build_terraform_admin_sa" {
-  project                      = google_project.default.project_id
-  account_id                   = "cloud-build-terraform-admin"
-  display_name                 = "Service Account for Cloud Build Terraform Admin"
-  create_ignore_already_exists = true
-}
-
-resource "google_project_iam_member" "cloud_build_terraform_admin_sa_member" {
-  for_each = toset([
-    "roles/serviceusage.serviceUsageConsumer",
-    "roles/cloudbuild.builds.builder",
-    "roles/storage.admin",
-    "roles/iam.serviceAccountUser",
-    "roles/secretmanager.admin",
-    "roles/run.admin",
-    "roles/firebase.admin",
-    "roles/artifactregistry.admin",
-    "roles/cloudkms.admin"
-  ])
-  project = google_project.default.project_id
-  role    = each.key
-  member  = "serviceAccount:${google_service_account.cloud_build_terraform_admin_sa.email}"
-}
-
-
 resource "google_service_account" "cloud_build_sa" {
   project                      = google_project.default.project_id
   account_id                   = "cloud-build"
@@ -259,8 +234,8 @@ resource "google_project_iam_member" "cloud_build_sa_member" {
     "roles/run.admin",
     "roles/firebase.admin",
     "roles/artifactregistry.admin",
-    "roles/secretmanager.secretAccessor",
-    "roles/cloudkms.viewer"
+    "roles/secretmanager.admin",
+    "roles/cloudkms.admin"
   ])
   project = google_project.default.project_id
   role    = each.key
@@ -354,7 +329,7 @@ resource "google_cloudbuild_trigger" "run-terraform-apply" {
   ]
 
   filename        = "cloudbuild.terraform-apply.yaml"
-  service_account = google_service_account.cloud_build_terraform_admin_sa.id
+  service_account = google_service_account.cloud_build_sa.id
   approval_config {
     approval_required = true
   }
