@@ -11,6 +11,9 @@ const initWebSocket = async (url: string): Promise<WebSocket> => new Promise((re
         console.error('WebSocket error:', error);
         reject(error)
     };
+    socket.onclose = (event) => {
+        console.log('WebSocket closed:', url, event);
+    };
 
     return socket;
 })
