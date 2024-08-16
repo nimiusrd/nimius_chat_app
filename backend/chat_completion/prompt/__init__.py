@@ -6,8 +6,6 @@ from openai.types.chat import ChatCompletionMessageParam
 @dataclass
 class GPTPrompt:
     messages: list[ChatCompletionMessageParam]
-    temperature: float
-    model: str = "gpt-3.5-turbo"
 
     def create_message(self, query: str | None) -> list[ChatCompletionMessageParam]:
         if query == "" or query is None:

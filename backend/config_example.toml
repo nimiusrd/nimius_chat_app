@@ -1,5 +1,7 @@
 # 'cloud_text_to_speech' or 'voicevox'
 speech_synthesizer = 'cloud_text_to_speech'
+# 'openapi' or 'gemini'
+generative_ai = 'gemini'
 
 [twitch]
 app_id = ''
@@ -14,4 +16,7 @@ host = 'host.docker.internal'
 port = 50021
 
 [openai]
+api_key = ''
+
+[gemini]
 api_key = ''

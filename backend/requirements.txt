@@ -16,3 +16,5 @@ flake8-comprehensions~=3.14
 flake8-implicit-str-concat~=0.4
 flake8-use-pathlib~=0.3
 google-cloud-texttospeech~=2.16
+google-generativeai~=0.7
+google-cloud-firestore~=2.17

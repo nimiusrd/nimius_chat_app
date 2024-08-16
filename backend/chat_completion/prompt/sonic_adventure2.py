@@ -3,7 +3,7 @@ https://ja.wikipedia.org/wiki/%E3%82%BD%E3%83%8B%E3%83%83%E3%82%AF%E3%82%A2%E3%8
 https://wikiwiki.jp/sonicsougou2/%E3%82%BD%E3%83%8B%E3%83%83%E3%82%AF%E3%82%A2%E3%83%89%E3%83%99%E3%83%B3%E3%83%81%E3%83%A3%E3%83%BC2/%E6%A6%82%E8%A6%81
 """
 
-from gpt.prompt import GPTPrompt
+from chat_completion.prompt import GPTPrompt
 
 text = "\n".join(
     [
@@ -601,5 +601,4 @@ prompt = GPTPrompt(
             "content": "最近の出来事について配信でコメントしてください。",
         },
     ],
-    temperature=1.0,
 )

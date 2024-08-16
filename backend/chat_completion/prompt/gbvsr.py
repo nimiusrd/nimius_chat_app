@@ -1,4 +1,4 @@
-from gpt.prompt import GPTPrompt
+from chat_completion.prompt import GPTPrompt
 
 prompt = GPTPrompt(
     messages=[
@@ -16,5 +16,4 @@ prompt = GPTPrompt(
         },
         {"role": "user", "content": "こんばんは！"},
     ],
-    temperature=1.0,
 )
