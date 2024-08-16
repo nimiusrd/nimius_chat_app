@@ -12,8 +12,12 @@ const initWebSocket = async (url: string): Promise<WebSocket> => new Promise((re
         reject(error)
     };
     socket.onclose = (event) => {
-        console.log('WebSocket closed:', url, event);
-    };
+        console.log('WebSocket closed:', event.code, event.reason);
+        if (event.code === 1006 || event.code === 1008) {
+            console.log('Reconnecting WebSocket:', url);
+            window.location.replace(`${import.meta.env.VITE_SERVER_URL}/login`);
+        }
+    }
 
     return socket;
 })
