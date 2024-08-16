@@ -218,6 +218,13 @@ resource "google_artifact_registry_repository" "builder" {
   }
 }
 
+resource "google_firestore_database" "database" {
+  project     = var.project_id
+  name        = "(default)"
+  location_id = var.region
+  type        = "FIRESTORE_NATIVE"
+}
+
 resource "google_service_account" "cloud_build_sa" {
   project                      = google_project.default.project_id
   account_id                   = "cloud-build"
