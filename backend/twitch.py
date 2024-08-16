@@ -51,6 +51,8 @@ async def apply_websocket(websocket):
         if event.user_name in BOT_ACCOUNT_LIST:
             return
         twitch_logger.info("Joined channel %s", event.user_name)
+        comment = chat_completion.create_greeting(event.user_name)
+        await speaker.talk(comment, websocket, True)
 
     async def create_gpt_comment(cmd: ChatCommand):
         twitch_logger.info("Creating GPT comment")
