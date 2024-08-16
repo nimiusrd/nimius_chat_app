@@ -13,7 +13,7 @@ class GeminiChatCompletion(ChatCompletion):
     model: str
     temperature: float
 
-    def __init__(self, model: str = "gemini-1.5.-flash", temperature: float = 1.0):
+    def __init__(self, model: str = "gemini-1.5-flash", temperature: float = 1.0):
         genai.configure(api_key=config.gemini.api_key)
         self.client = genai.GenerativeModel(model)
         self.temperature = temperature
