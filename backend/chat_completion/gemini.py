@@ -31,10 +31,32 @@ class GeminiChatCompletion(ChatCompletion):
 #[反応のルール]
 必ず絵文字を使うようにしてください。
 60文字以内になるようにしてください。
-質問はインターネットで調べて答えてください。
 
 #[ゲーム配信者の視聴者のコメント]
 「{{query}}」
+""",
+            )
+        )
+        chat_completion_logger.info("Chat completion created.")
+        return response.text
+
+    def create_greeting(self, query: str | None = None):
+        chat_completion_logger.info("Creating chat completion.")
+        response = self.client.generate_content(
+            create_prompt(
+                query,
+                """
+あなたはゲーム配信者のアシスタントです。
+ゲーム配信者の視聴者は配信者のことに関するコメントをします。
+あなたは視聴者に対して挨拶をしてください。
+
+#[挨拶のルール]
+必ず絵文字を使うようにしてください。
+60文字以内になるようにしてください。
+視聴者の名前は「{{query}}」です。
+視聴者の名前には敬称をつけてください。
+視聴者の気を引くような一言を添えてください。
+出力は1つだけです。
 """,
             )
         )
