@@ -36,7 +36,8 @@ async def apply_websocket(websocket):
     async def on_ready(ready_event: EventData):
         twitch_logger.info("Bot is ready for work, joining channels")
         await ready_event.chat.join_room(config.twitch.target_channel)
-        await speaker.talk("準備完了しました。", websocket, True)
+        comment = chat_completion.create_small_talk()
+        await speaker.talk(comment, websocket, True)
 
     async def on_message(msg: ChatMessage):
         if is_command(msg.text):
