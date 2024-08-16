@@ -4,7 +4,9 @@ from config import config
 from logger import chat_completion_logger
 
 
-def create_prompt(query: str, prompt: str):
+def create_prompt(query: str | None, prompt: str):
+    if query is None:
+        query = ""
     result = prompt.replace("{{query}}", query)
     result = result.replace("{{streamer}}", config.twitch.target_channel)
     return result
