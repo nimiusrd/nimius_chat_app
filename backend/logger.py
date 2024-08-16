@@ -10,5 +10,5 @@ logging.basicConfig(
 
 twitch_logger = logging.getLogger("twitch")
 speech_synthesizer_logger = logging.getLogger("speech_synthesizer")
-gpt_logger = logging.getLogger("gpt")
+chat_completion_logger = logging.getLogger("gpt")
 socket_logger = logging.getLogger("socket")

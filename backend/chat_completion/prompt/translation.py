@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from gpt.prompt import GPTPrompt
+from chat_completion.prompt import GPTPrompt
 from openai.types.chat import ChatCompletionMessageParam
 
 
@@ -29,5 +29,4 @@ prompt = TranslationGPTPrompt(
         {"role": "user", "content": "こんにちは。私は二郎です。"},
         {"role": "assistant", "content": "Hello. I am Jiro."},
     ],
-    temperature=0,
 )

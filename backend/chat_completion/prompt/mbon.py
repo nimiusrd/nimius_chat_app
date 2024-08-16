@@ -1,4 +1,4 @@
-from gpt.prompt import GPTPrompt
+from chat_completion.prompt import GPTPrompt
 
 text = """
 総コストは6000。コスト帯は3000、2500、2000、1500の4種。コストオーバーあり。
@@ -57,5 +57,4 @@ prompt = GPTPrompt(
             "content": "最近の出来事について配信でコメントしてください。",
         },
     ],
-    temperature=1.0,
 )

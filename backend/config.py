@@ -7,6 +7,8 @@ from typing import Final, Literal
 
 CLOUD_TEXT_TO_SPEECH: Final = "cloud_text_to_speech"
 VOICEVOX: Final = "voicevox"
+OPENAI: Final = "openai"
+GEMINI: Final = "gemini"
 
 
 @dataclass
@@ -17,6 +19,19 @@ class OpenAIConfig:
     ----------
     api_key : str
         OpenAI API Key. You can get it from https://platform.openai.com/account/api-keys.
+    """
+
+    api_key: str
+
+
+@dataclass
+class GeminiConfig:
+    """Configuration for Gemini API.
+
+    Parameters
+    ----------
+    api_key : str
+        Gemini API Key. You can get it from https://aistudio.google.com/app/apikey.
     """
 
     api_key: str
@@ -75,7 +90,9 @@ class Config:
     twitch: TwitchConfig
     voicevox: VOICEVOXConfig
     openai: OpenAIConfig
+    gemini: GeminiConfig
     speech_synthesizer: Literal["cloud_text_to_speech", "voicevox"]
+    generative_ai: Literal["openai", "gemini"]
 
 
 def read_config():
@@ -86,6 +103,7 @@ def read_config():
     twitch = data["twitch"]
     voicevox = data["voicevox"]
     openai = data["openai"]
+    gemini = data["gemini"]
     return Config(
         twitch=TwitchConfig(
             app_id=twitch["app_id"],
@@ -100,7 +118,9 @@ def read_config():
             output=voicevox.get("output", "frontend/public/output.wav"),
         ),
         openai=OpenAIConfig(api_key=openai["api_key"]),
+        gemini=GeminiConfig(api_key=gemini["api_key"]),
         speech_synthesizer=data["speech_synthesizer"],
+        generative_ai=data["generative_ai"],
     )
 
 

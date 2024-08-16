@@ -1,5 +1,5 @@
+from chat_completion import chat_completion
 from config import config
-from gpt.chat_completion import create_comment, create_translation
 from logger import twitch_logger
 from speech_synthesizer import speaker
 from twitchAPI.chat import ChatCommand, ChatMessage, EventData, JoinEvent
@@ -43,9 +43,9 @@ async def apply_websocket(websocket):
             return
         twitch_logger.info("%s said: %s", msg.user.name, msg.text)
         await speaker.talk(msg.text, websocket)
-        translation = create_translation(msg.text)
-        twitch_logger.info("Translation: %s", translation)
-        await msg.reply(f"🤖{translation}")
+        # translation = chat_completion.create_translation(msg.text)
+        # twitch_logger.info("Translation: %s", translation)
+        # await msg.reply(f"🤖{translation}")
 
     async def on_join(event: JoinEvent):
         if event.user_name in BOT_ACCOUNT_LIST:
@@ -57,11 +57,11 @@ async def apply_websocket(websocket):
         query = cmd.parameter
         if query != "":
             await speaker.talk(query, websocket)
-        comment = create_comment(query)
+        comment = chat_completion.create_comment(query)
         await cmd.send(comment)
         await speaker.talk(comment, websocket, True)
-        translation = create_translation(comment)
-        twitch_logger.info("Translation: %s", translation)
-        await cmd.send(f"🤖{translation}")
+        # translation = chat_completion.create_translation(comment)
+        # twitch_logger.info("Translation: %s", translation)
+        # await cmd.send(f"🤖{translation}")
 
     return create_gpt_comment, on_message, on_ready, on_join
