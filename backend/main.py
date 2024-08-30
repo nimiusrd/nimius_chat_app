@@ -60,9 +60,7 @@ async def websocket_endpoint(
 
     try:
         while True:
-            data = await websocket.receive_text()
-            socket_logger.info(data)
-            await websocket.send_text(f"Message text was: {data}")
+            pass
     finally:
         twitch_logger.info("Closing chat")
         chat.stop()
