@@ -48,7 +48,7 @@
     {:else if webSocket.socket.readyState === WebSocket.OPEN}
       <div class="container">
         <div>
-          <img src={nimiusBot} class="logo" alt="Vite Logo" />
+          <img src={nimiusBot} class="logo" alt="nimius Bot" />
         </div>
         <TypingText {text} />
       </div>
